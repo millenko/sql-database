@@ -3,8 +3,8 @@ USE wine;
 
 -- ==================================================
 -- BASIC QUERIES
--- ==================================================
 
+-- ==================================================
 -- Selecting all the data from each table, to check if the data succesfully loaded from the .csv files
 SHOW TABLES;
 SELECT * FROM red;
@@ -12,6 +12,7 @@ SELECT * FROM rose;
 SELECT * FROM sparkling;
 SELECT * FROM white;
 
+-- ===================================================================
 -- Counting the number of records per table
 SELECT 'red' AS table_name, COUNT(*) AS record_count FROM red
 UNION ALL
@@ -23,18 +24,18 @@ SELECT 'white' AS table_name, COUNT(*) AS record_count FROM white;
 
 -- ===================================================================
 -- Getting unique values of a column, to gain insights about the wines
--- ===================================================================
 
 -- ===================================================================
 -- COUNTRIES
--- ===================================================================
 
+-- ===================================================================
 -- How many countries do the wines come from
 SELECT COUNT(DISTINCT country) FROM red; -- 30 countries
 SELECT COUNT(DISTINCT country) FROM rose; -- 16
 SELECT COUNT(DISTINCT country) FROM sparkling; -- 16
 SELECT COUNT(DISTINCT country) FROM white; -- 30
 
+-- ===================================================================
 -- What countries most of the wines come from
 SELECT country, COUNT(country) FROM red
 GROUP BY country
@@ -57,13 +58,23 @@ ORDER BY COUNT(country) DESC
 LIMIT 5; -- Top 5: Germany, Italy, France, South Africa, Spain
 
 -- ===================================================================
+-- REGIONS
+-- ===================================================================
+
+-- How many countries do the wines come from
+SELECT COUNT(DISTINCT region) FROM red; -- 624 regions
+SELECT COUNT(DISTINCT region) FROM rose; -- 129
+SELECT COUNT(DISTINCT region) FROM sparkling; -- 123
+SELECT COUNT(DISTINCT region) FROM white; -- 457
+
+-- ===================================================================
 -- RATINGS: What countries offer the best rating-price ratio
 -- ===================================================================
 
 -- ===================================================================
 -- RED WINE
 
--- Top 5 HIGHEST-RATED RED wine producers: Moldova, Lebanon, Georgia, Croatia, United States
+-- Top 5 HIGHEST-RATED RED wine producers: 7, Lebanon, Georgia, Croatia, United States
 SELECT country, ROUND(AVG(rating),2) FROM red
 GROUP BY country
 ORDER BY AVG(rating) DESC
@@ -293,11 +304,11 @@ LIMIT 5;
 'Hungary','13.37'
 */
 
--- ===================================================================
--- The average price for the most affordable wine producers:
--- ===================================================================
+-- =====================================================================
+-- The most affordable wines from the producers with the highest ratings
+-- =====================================================================
 
--- ===================================================================
+-- =====================================================================
 -- The average price for ROSE: Moldova, Greece, Austria
 
 SELECT country, ROUND(AVG(price), 2) AS avg_price
